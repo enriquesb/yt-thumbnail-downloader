@@ -8,9 +8,11 @@
 
 .thumbnail-card {
   border: 1px solid black;
-  display: flex;
   padding: 1rem;
   margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  max-width: 600px; /* Set a max-width for each thumbnail card */
 }
 
 .tn-image {
@@ -22,7 +24,7 @@
 }
 
 .tn-description {
-  flex: 2;
+  flex: 1;
   padding-left: 1rem;
   text-align: left;
 }

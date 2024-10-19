@@ -7,21 +7,21 @@ function Thumbnails({ thumbnailsData }) {
   return (
     <div>
       <h2>Thumbnails:</h2>
-      <ul>
-        {Object.entries(thumbnailsData).map(([key, value]) => (
-          <div className="thumbnail-card" key={key}>
-            <div className="tn-image">
-              <img src={value.url} />
-            </div>
-            <div className="tn-description">
-              <h3>{key}</h3>
-              <p>Width: {value.width} px</p>
-              <p>Height: {value.height} px</p>
-              <p> <a href={value.url} target="blank">Download Image</a></p>
-            </div>
+
+      {Object.entries(thumbnailsData).map(([key, value]) => (
+        <div className="thumbnail-card" key={key}>
+          <div className="tn-image">
+            <img src={value.url} />
           </div>
-        ))}
-      </ul>
+          <div className="tn-description">
+            <h3>{key}</h3>
+            <p>Width: {value.width} px</p>
+            <p>Height: {value.height} px</p>
+            <p> <a href={value.url} target="blank">Download Image</a></p>
+          </div>
+        </div>
+      ))}
+
     </div>
   )
 }
