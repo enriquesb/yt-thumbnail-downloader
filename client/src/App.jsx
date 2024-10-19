@@ -1,22 +1,61 @@
-import './App.css'
+import "./App.css";
+import { useState } from 'react'
 
-function App() {
+const backendApi = "http://localhost:3000/thumbnails";
+
+function Thumbnails({ thumbnailsData }) {
   return (
-    <>
-      <h1>YT Thumbnail Downlaoder</h1>
-      <form>
-        <label htmlFor='video-url'>Paste youtube video URL: </label>
-        <input type='text' id='video-url'></input>
-        <input type='submit'></input>
-      </form>
-      <p>list of thumbnails:</p>
+    <div>
+      <h2>Thumbnails:</h2>
       <ul>
-        <li>Thumbnail #1</li>
-        <li>Thumbnail ...</li>
-        <li>Thumbnail N</li>
+        {Object.entries(thumbnailsData).map(([key, value]) => (
+          <li key={key}>{key}</li>
+        ))}
       </ul>
-    </>
+    </div>
   )
+
 }
 
-export default App
+function App() {
+  const [videoUrl, setVideoUrl] = useState('');
+  const [thumbnailsData, setThumbnailsData] = useState(null);
+  const [error, setError] = useState(null);
+
+  async function fetchThumbnails() {
+    try {
+      const response = await fetch(`${backendApi}?videoUrl=${videoUrl}`)
+      if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
+      }
+      const json = await response.json();
+      setThumbnailsData(json);
+    } catch (error) {
+      console.error(error.message);
+      setError(error);
+    }
+  }
+
+  return (
+    <div>
+      <h1>YT Thumbnail Downloader</h1>
+      <label htmlFor="video-url">Paste youtube video URL: </label>
+      <input
+        type="text"
+        id="video-url"
+        onChange={(e) => setVideoUrl(e.target.value)}>
+      </input>
+
+      <button
+        onClick={fetchThumbnails}
+        disabled={videoUrl.length === 0}>Get Thumbnails
+      </button>
+
+      {thumbnailsData && <Thumbnails thumbnailsData={thumbnailsData} />}
+
+      {error && <p> Error: {error.message}</p>}
+    </div>
+  );
+}
+
+export default App;

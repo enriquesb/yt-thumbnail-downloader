@@ -1,6 +1,9 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 const port = 3000;
+
+app.use(cors());
 
 require('dotenv').config()
 const apiKey = process.env.YT_API_KEY;
@@ -21,11 +24,11 @@ app.get('/thumbnails', async (req, res) => {
     const json = await response.json();
     const thumbnailsInfo = json.items[0].snippet.thumbnails;
     res.send(thumbnailsInfo);
-  } catch(error) {
+  } catch (error) {
     console.error(error.message);
   }
 })
 
-app.listen( port, () =>{
+app.listen(port, () => {
   console.log(`App listening in port ${port}`);
 })
