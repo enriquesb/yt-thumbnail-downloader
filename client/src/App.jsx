@@ -6,7 +6,7 @@ const backendApi = "http://localhost:3000/api/thumbnails";
 function Thumbnails({ thumbnailsData }) {
   return (
     <div>
-      <h2>Thumbnails:</h2>
+      <h2>Retrieved Thumbnails:</h2>
 
       {Object.entries(thumbnailsData).map(([key, value]) => (
         <div className="thumbnail-card" key={key}>
