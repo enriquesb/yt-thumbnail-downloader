@@ -30,8 +30,10 @@ function App() {
   const [videoUrl, setVideoUrl] = useState('');
   const [thumbnailsData, setThumbnailsData] = useState(null);
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   async function fetchThumbnails() {
+    setIsLoading(true);
     try {
       const response = await fetch(`${backendApi}?videoUrl=${videoUrl}`)
       if (!response.ok) {
@@ -42,6 +44,8 @@ function App() {
     } catch (error) {
       console.error(error.message);
       setError(error);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -63,6 +67,8 @@ function App() {
       {thumbnailsData && <Thumbnails thumbnailsData={thumbnailsData} />}
 
       {error && <p> Error: {error.message}</p>}
+      {isLoading && <p>Loading...</p>}
+
     </div>
   );
 }

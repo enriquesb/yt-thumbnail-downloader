@@ -12,7 +12,10 @@
   margin-bottom: 1rem;
   display: flex;
   align-items: center;
-  max-width: 600px; /* Set a max-width for each thumbnail card */
+  max-width: 600px;
+  border-radius: 1em;
+  border-color: #6bbaa3;
+  border-width: 2px;
 }
 
 .tn-image {
