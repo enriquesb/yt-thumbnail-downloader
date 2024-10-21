@@ -28,3 +28,12 @@
   padding-left: 1rem;
   text-align: left;
 }
+
+.video-url-input {
+  display: block;
+  width: 100%;
+  text-align: center;
+  height: 2rem;
+  border-radius: 1rem;
+  margin: 1.5rem 0;
+}

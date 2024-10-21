@@ -48,10 +48,10 @@ function App() {
   return (
     <div>
       <h1>YT Thumbnail Downloader</h1>
-      <label htmlFor="video-url">Paste youtube video URL: </label>
       <input
         type="text"
-        id="video-url"
+        className="video-url-input"
+        placeholder="Paste a youtube video URL"
         onChange={(e) => setVideoUrl(e.target.value)}>
       </input>
 
