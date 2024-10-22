@@ -8,7 +8,7 @@ require('dotenv').config()
 const apiKey = process.env.YT_API_KEY;
 
 app.use(express.static(path.join(__dirname, '../client/dist')));
-app.use(cors());
+app.use(cors({ origin: '*' }));
 
 const baseUrl = "https://youtube.googleapis.com/youtube/v3/videos?part=snippet";
 const re = /^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/|shorts\/)|(?:(?:watch)?\?v(?:i)?=|\&v(?:i)?=))([^#\&\?]*).*/;
