@@ -1,14 +1,14 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const port = 3000;
+const port = process.env.PORT || 3000;
 const path = require('path');
 
 require('dotenv').config()
 const apiKey = process.env.YT_API_KEY;
 
 app.use(express.static(path.join(__dirname, '../client/dist')));
-app.use(cors({ origin: '*' }));
+app.use(cors());
 
 const baseUrl = "https://youtube.googleapis.com/youtube/v3/videos?part=snippet";
 const re = /^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/|shorts\/)|(?:(?:watch)?\?v(?:i)?=|\&v(?:i)?=))([^#\&\?]*).*/;
