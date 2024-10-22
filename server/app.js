@@ -2,11 +2,13 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const port = 3000;
-
-app.use(cors());
+const path = require('path');
 
 require('dotenv').config()
 const apiKey = process.env.YT_API_KEY;
+
+app.use(express.static(path.join(__dirname, '../client/dist')));
+app.use(cors());
 
 const baseUrl = "https://youtube.googleapis.com/youtube/v3/videos?part=snippet";
 const re = /^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/|shorts\/)|(?:(?:watch)?\?v(?:i)?=|\&v(?:i)?=))([^#\&\?]*).*/;
@@ -33,6 +35,10 @@ app.get('/api/thumbnails', async (req, res) => {
   } catch (error) {
     console.error(error.message);
   }
+})
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
 })
 
 app.listen(port, () => {
