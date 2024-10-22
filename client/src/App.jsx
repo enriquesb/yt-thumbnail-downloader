@@ -34,10 +34,13 @@ function App() {
 
   async function fetchThumbnails() {
     setIsLoading(true);
+    setError(null);
+    setThumbnailsData(null);
     try {
       const response = await fetch(`${backendApi}?videoUrl=${videoUrl}`)
       if (!response.ok) {
-        throw new Error(`Response status: ${response.status}`);
+        const json = await response.json();
+        throw new Error(json.error || `Response status: ${response.status}`);
       }
       const json = await response.json();
       setThumbnailsData(json);
@@ -64,10 +67,11 @@ function App() {
         disabled={videoUrl.length === 0}>Get Thumbnails
       </button>
 
-      {thumbnailsData && <Thumbnails thumbnailsData={thumbnailsData} />}
 
-      {error && <p> Error: {error.message}</p>}
+
+      {error && <p className='error-message'> Error: {error.message}</p>}
       {isLoading && <p>Loading...</p>}
+      {thumbnailsData && <Thumbnails thumbnailsData={thumbnailsData} />}
 
     </div>
   );
