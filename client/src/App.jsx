@@ -1,7 +1,7 @@
 import "./App.css";
 import { useState } from 'react'
 
-const backendApi = "http://localhost:3000/api/thumbnails";
+const backendApi = `${window.location.origin}/api/thumbnails`;
 
 function Thumbnails({ thumbnailsData }) {
   return (
