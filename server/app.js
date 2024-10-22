@@ -13,7 +13,13 @@ const re = /^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/|shorts\/)|(?:(?:watch)
 
 app.get('/api/thumbnails', async (req, res) => {
   const videoUrl = req.query.videoUrl;
-  const videoId = videoUrl.match(re)[1];
+  const match = videoUrl.match(re);
+
+  if (!match || !match[1]) {
+    return res.status(400).json({ error: "Invalid YouTube URL. Please try again with a valid YouTube video URL." });
+  }
+
+  const videoId = match[1];
   const fetchUrl = `${baseUrl}&id=${videoId}&key=${apiKey}`;
 
   try {
