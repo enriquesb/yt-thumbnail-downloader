@@ -6,9 +6,22 @@ const path = require('path');
 
 require('dotenv').config()
 const apiKey = process.env.YT_API_KEY;
+const allowedOrigins = process.env.ALLOWED_ORIGINS.split(',');
 
 app.use(express.static(path.join(__dirname, '../client/dist')));
-app.use(cors());
+
+// Restrict the access to the API, allow only specified origins
+app.use(cors({
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or server-side scripts)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  }
+}));
 
 const baseUrl = "https://youtube.googleapis.com/youtube/v3/videos?part=snippet";
 const re = /^.*(?:(?:youtu\.be\/|v\/|vi\/|u\/\w\/|embed\/|shorts\/)|(?:(?:watch)?\?v(?:i)?=|\&v(?:i)?=))([^#\&\?]*).*/;
